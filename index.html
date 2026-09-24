@@ -6,10 +6,10 @@
 <title>Catalogue Tricentris 2026</title>
 <meta name="description" content="Catalogue des services aux membres de Tricentris, la coop — édition 2026.">
 <meta name="theme-color" content="#00a85a">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:'Figtree';font-style:normal;font-display:swap;font-weight:300 900;src:url(fonts/figtree-latin-ext-wght-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Figtree';font-style:normal;font-display:swap;font-weight:300 900;src:url(fonts/figtree-latin-wght-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --vert:#00a85a;--vert-fonce:#00874a;--vert-pale:#e6f6ee;
@@ -145,6 +145,10 @@ fieldset.champ{border:none}
 .acc-err{color:var(--rouge);font-weight:600;font-size:.88rem;margin-top:10px;text-align:center;min-height:1.2em}
 .acc-note{font-size:.76rem;color:var(--texte-doux);margin-top:14px;text-align:center}
 .cache{position:absolute;left:-9999px}
+.consent{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;margin:4px 0 12px;cursor:pointer;color:var(--texte)}
+.consent input{width:20px;height:20px;accent-color:var(--vert);flex:none;margin-top:1px}
+.consent a,.acc-note a,footer a{color:var(--vert-fonce);font-weight:700}
+.passer{display:block;width:100%;margin-top:12px;background:none;border:none;font:inherit;font-size:.92rem;font-weight:700;color:var(--texte-doux);text-decoration:underline;cursor:pointer;padding:8px}
 </style>
 <script>
 (function(){
@@ -180,9 +184,13 @@ fieldset.champ{border:none}
         <button type="button" class="tout" id="tout-cocher">Tout cocher</button>
         <div id="liste-services"></div>
       </fieldset>
+      <input type="hidden" name="version-politique" value="2026-09-24">
+      <label class="consent"><input type="checkbox" name="consentement" id="consentement" value="oui" required><span>J’accepte que Tricentris conserve ces renseignements et me contacte par courriel au sujet des services cochés. Je peux retirer mon consentement en tout temps. <a href="confidentialite.html" target="_blank" rel="noopener">Politique de confidentialité</a></span></label>
+      <label class="consent"><input type="checkbox" name="infolettre" value="oui"><span>Facultatif : j’accepte aussi de recevoir l’infolettre et les nouveautés de Tricentris.</span></label>
       <button type="submit" class="acc-btn" id="acc-btn" disabled>Voir le catalogue</button>
       <div class="acc-err" id="acc-err" role="alert"></div>
-      <p class="acc-note">Vos informations servent uniquement à Tricentris pour faire un suivi sur les services qui vous intéressent.</p>
+      <p class="acc-note">Vos renseignements sont hébergés par Netlify, aux États-Unis. Détails dans notre <a href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>.</p>
+      <button type="button" class="passer" id="passer">Voir le catalogue sans m’inscrire</button>
     </form>
   </div>
 </div>
@@ -405,7 +413,7 @@ fieldset.champ{border:none}
 
 </main>
 
-<footer>Tricentris, la coop · Catalogue des services aux membres 2026<br>Version web mobile v1.2</footer>
+<footer>Tricentris, la coop · Catalogue des services aux membres 2026<br><a href="confidentialite.html">Politique de confidentialité</a> · Version web mobile v1.3</footer>
 
 <button class="haut" id="haut" aria-label="Retour en haut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
 
@@ -452,7 +460,7 @@ fieldset.champ{border:none}
   var acc=document.getElementById('accueil'), form=document.getElementById('form-accueil');
   var liste=document.getElementById('liste-services'), btn=document.getElementById('acc-btn'), err=document.getElementById('acc-err');
   function ouvrir(){acc.hidden=true;document.body.classList.remove('verrou')}
-  var deja=false; try{deja=localStorage.getItem(CLE)==='1'}catch(e){}
+  var deja=false; try{deja=localStorage.getItem(CLE)==='1'||sessionStorage.getItem(CLE)==='passe'}catch(e){}
   if(deja){ouvrir();return}
 
   GROUPES.forEach(function(g){
@@ -464,9 +472,10 @@ fieldset.champ{border:none}
     });
   });
   var cases=[].slice.call(liste.querySelectorAll('input'));
-  var courriel=document.getElementById('courriel'), muni=document.getElementById('municipalite');
+  var courriel=document.getElementById('courriel'), muni=document.getElementById('municipalite'), consent=document.getElementById('consentement');
+  document.getElementById('passer').addEventListener('click',function(){try{sessionStorage.setItem(CLE,'passe')}catch(e){}ouvrir();window.scrollTo(0,0)});
   function valide(){
-    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(courriel.value.trim()) && muni.value.trim().length>1 && cases.some(function(c){return c.checked});
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(courriel.value.trim()) && muni.value.trim().length>1 && consent.checked && cases.some(function(c){return c.checked});
   }
   function maj(){btn.disabled=!valide();err.textContent=''}
   form.addEventListener('input',maj);form.addEventListener('change',maj);
@@ -476,7 +485,7 @@ fieldset.champ{border:none}
   });
   form.addEventListener('submit',function(e){
     e.preventDefault();
-    if(!valide()){err.textContent='Veuillez entrer un courriel valide, votre municipalité et au moins un service.';return}
+    if(!valide()){err.textContent='Veuillez entrer un courriel valide, votre municipalité, au moins un service et cocher la case de consentement.';return}
     document.getElementById('services-choisis').value=cases.filter(function(c){return c.checked}).map(function(c){return c.value}).join(', ');
     btn.disabled=true;btn.textContent='Envoi…';
     fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
