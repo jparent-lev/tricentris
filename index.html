@@ -120,6 +120,31 @@ footer{text-align:center;padding:26px 16px calc(26px + env(safe-area-inset-botto
 .haut{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;width:46px;height:46px;border-radius:50%;border:none;background:var(--vert);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .25s;cursor:pointer}
 .haut.vis{opacity:1;pointer-events:auto}
 .haut svg{width:22px;height:22px}
+
+/* Écran d'accueil */
+body.verrou{overflow:hidden}
+.accueil{position:fixed;inset:0;z-index:1000;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(24px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom))}
+.accueil[hidden]{display:none}
+.acc-boite{max-width:520px;margin:0 auto}
+.acc-logo{height:78px;width:auto;margin:0 auto 18px;background:#fff;border-radius:8px;padding:6px 10px}
+.acc-titre{text-align:center;font-size:1.7rem;font-weight:800;letter-spacing:.1em;line-height:1.1}
+.acc-sous{text-align:center;color:var(--texte-doux);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+.acc-intro{text-align:center;margin:18px 0 22px;color:var(--texte-doux)}
+.champ{margin-bottom:16px}
+.champ > label,.champ legend{display:block;font-weight:700;font-size:.92rem;margin-bottom:6px}
+.champ input[type=email],.champ input[type=text]{width:100%;font:inherit;font-size:1rem;padding:13px 14px;border:1.5px solid var(--ligne);border-radius:10px;background:var(--card);color:var(--texte)}
+.champ input:focus{outline:none;border-color:var(--vert);box-shadow:0 0 0 3px var(--vert-pale)}
+fieldset.champ{border:none}
+.grp{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--vert-fonce);margin:14px 0 8px}
+.choix{display:flex;align-items:center;gap:10px;padding:11px 12px;border:1.5px solid var(--ligne);border-radius:10px;margin-bottom:8px;cursor:pointer;background:var(--card);font-size:.95rem}
+.choix input{width:20px;height:20px;accent-color:var(--vert);flex:none}
+.choix:has(input:checked){border-color:var(--vert);background:var(--vert-pale)}
+.tout{font-size:.82rem;font-weight:700;color:var(--vert-fonce);background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;font-family:inherit}
+.acc-btn{width:100%;margin-top:8px;font:inherit;font-size:1.05rem;font-weight:800;padding:15px;border:none;border-radius:12px;background:var(--vert);color:#fff;cursor:pointer;box-shadow:0 4px 14px rgba(0,168,90,.3)}
+.acc-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.acc-err{color:var(--rouge);font-weight:600;font-size:.88rem;margin-top:10px;text-align:center;min-height:1.2em}
+.acc-note{font-size:.76rem;color:var(--texte-doux);margin-top:14px;text-align:center}
+.cache{position:absolute;left:-9999px}
 </style>
 <script>
 (function(){
@@ -130,7 +155,37 @@ footer{text-align:center;padding:26px 16px calc(26px + env(safe-area-inset-botto
 })();
 </script>
 </head>
-<body>
+<body class="verrou">
+
+<div class="accueil" id="accueil" role="dialog" aria-modal="true" aria-labelledby="acc-titre">
+  <div class="acc-boite">
+    <img class="acc-logo" src="img/logo.png" alt="Tricentris, la coop">
+    <h2 class="acc-titre" id="acc-titre">CATALOGUE 2026</h2>
+    <div class="acc-sous">Services aux membres</div>
+    <p class="acc-intro">Dites-nous qui vous êtes et ce qui vous intéresse : notre équipe pourra vous faire un suivi personnalisé.</p>
+    <form name="inscription-catalogue" id="form-accueil" method="POST" data-netlify="true" netlify-honeypot="site-web" novalidate>
+      <input type="hidden" name="form-name" value="inscription-catalogue">
+      <input type="hidden" name="services" id="services-choisis">
+      <p class="cache"><label>Ne pas remplir : <input name="site-web" tabindex="-1" autocomplete="off"></label></p>
+      <div class="champ">
+        <label for="courriel">Courriel</label>
+        <input type="email" id="courriel" name="courriel" autocomplete="email" inputmode="email" placeholder="nom@municipalite.ca" required>
+      </div>
+      <div class="champ">
+        <label for="municipalite">Municipalité</label>
+        <input type="text" id="municipalite" name="municipalite" autocomplete="address-level2" placeholder="Ex. : Mirabel" required>
+      </div>
+      <fieldset class="champ">
+        <legend>Services d’intérêt</legend>
+        <button type="button" class="tout" id="tout-cocher">Tout cocher</button>
+        <div id="liste-services"></div>
+      </fieldset>
+      <button type="submit" class="acc-btn" id="acc-btn" disabled>Voir le catalogue</button>
+      <div class="acc-err" id="acc-err" role="alert"></div>
+      <p class="acc-note">Vos informations servent uniquement à Tricentris pour faire un suivi sur les services qui vous intéressent.</p>
+    </form>
+  </div>
+</div>
 
 <header class="top">
   <div class="top-row">
@@ -350,7 +405,7 @@ footer{text-align:center;padding:26px 16px calc(26px + env(safe-area-inset-botto
 
 </main>
 
-<footer>Tricentris, la coop · Catalogue des services aux membres 2026<br>Version web mobile v1.1</footer>
+<footer>Tricentris, la coop · Catalogue des services aux membres 2026<br>Version web mobile v1.2</footer>
 
 <button class="haut" id="haut" aria-label="Retour en haut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
 
@@ -383,6 +438,57 @@ footer{text-align:center;padding:26px 16px calc(26px + env(safe-area-inset-botto
   window.addEventListener('scroll',maj,{passive:true});
   haut.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
   maj();
+})();
+</script>
+<script>
+(function(){
+  var GROUPES=[
+    ['Réduction, écocentre et réemploi',['Gestion d’écocentre','Boutique de réemploi','Remorque de réparation','Système de contenants réutilisables']],
+    ['Collecte, centre de tri et récupération',['Collecte encombrant','Collecte de conteneurs','Collecte de textile','Tri de textile']],
+    ['Information, sensibilisation et éducation',['Conférence 3RVE','Atelier scolaire','Pièce de théâtre Récup et Dragon','Brigade des bacs','Application Circuit','Outils de communication','Kiosque d’information','Location de mascotte','Station de recyclage mobile']],
+    ['Autre',['Programme S’investir pour des communautés durables']]
+  ];
+  var CLE='tricentris-inscrit';
+  var acc=document.getElementById('accueil'), form=document.getElementById('form-accueil');
+  var liste=document.getElementById('liste-services'), btn=document.getElementById('acc-btn'), err=document.getElementById('acc-err');
+  function ouvrir(){acc.hidden=true;document.body.classList.remove('verrou')}
+  var deja=false; try{deja=localStorage.getItem(CLE)==='1'}catch(e){}
+  if(deja){ouvrir();return}
+
+  GROUPES.forEach(function(g){
+    var h=document.createElement('div');h.className='grp';h.textContent=g[0];liste.appendChild(h);
+    g[1].forEach(function(nom){
+      var l=document.createElement('label');l.className='choix';
+      var c=document.createElement('input');c.type='checkbox';c.value=nom;
+      l.appendChild(c);l.appendChild(document.createTextNode(nom));liste.appendChild(l);
+    });
+  });
+  var cases=[].slice.call(liste.querySelectorAll('input'));
+  var courriel=document.getElementById('courriel'), muni=document.getElementById('municipalite');
+  function valide(){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(courriel.value.trim()) && muni.value.trim().length>1 && cases.some(function(c){return c.checked});
+  }
+  function maj(){btn.disabled=!valide();err.textContent=''}
+  form.addEventListener('input',maj);form.addEventListener('change',maj);
+  document.getElementById('tout-cocher').addEventListener('click',function(){
+    var tous=cases.every(function(c){return c.checked});
+    cases.forEach(function(c){c.checked=!tous});this.textContent=tous?'Tout cocher':'Tout décocher';maj();
+  });
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!valide()){err.textContent='Veuillez entrer un courriel valide, votre municipalité et au moins un service.';return}
+    document.getElementById('services-choisis').value=cases.filter(function(c){return c.checked}).map(function(c){return c.value}).join(', ');
+    btn.disabled=true;btn.textContent='Envoi…';
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
+      .then(function(r){if(!r.ok)throw new Error(r.status);
+        try{localStorage.setItem(CLE,'1')}catch(e){}
+        ouvrir();window.scrollTo(0,0);
+      })
+      .catch(function(){
+        btn.disabled=false;btn.textContent='Voir le catalogue';
+        err.textContent='L’envoi a échoué. Vérifiez votre connexion et réessayez.';
+      });
+  });
 })();
 </script>
 </body>
