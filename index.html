@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Catalogue Tricentris 2026</title>
+<meta name="description" content="Catalogue des services aux membres de Tricentris, la coop — édition 2026.">
+<meta name="theme-color" content="#00a85a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --vert:#00a85a;--vert-fonce:#00874a;--vert-pale:#e6f6ee;
+  --texte:#3d3838;--texte-doux:#6b6464;--bg:#ffffff;--bg-alt:#f5f4f2;--card:#ffffff;
+  --ligne:#e4e1dd;--rouge:#e30613;--ombre:0 2px 14px rgba(0,0,0,.07)
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --vert:#22c274;--vert-fonce:#3fd68a;--vert-pale:#10301f;
+    --texte:#ecebea;--texte-doux:#aaa5a2;--bg:#141414;--bg-alt:#1c1c1c;--card:#1f1f1f;
+    --ligne:#333;--ombre:0 2px 14px rgba(0,0,0,.4)
+  }
+}
+:root[data-theme="dark"]{
+  --vert:#22c274;--vert-fonce:#3fd68a;--vert-pale:#10301f;
+  --texte:#ecebea;--texte-doux:#aaa5a2;--bg:#141414;--bg-alt:#1c1c1c;--card:#1f1f1f;
+  --ligne:#333;--ombre:0 2px 14px rgba(0,0,0,.4)
+}
+html{scroll-behavior:smooth;scroll-padding-top:112px}
+body{font-family:'Figtree',system-ui,sans-serif;background:var(--bg);color:var(--texte);line-height:1.55;-webkit-text-size-adjust:100%}
+img{display:block;max-width:100%}
+a{color:inherit}
+
+/* En-tête collant */
+.top{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--ligne);padding-top:env(safe-area-inset-top)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px}
+.top-logo{height:42px;width:auto;border-radius:4px;background:#fff;padding:2px 4px}
+.top-titre{font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--texte-doux)}
+.nav{display:flex;gap:8px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;font-size:.82rem;font-weight:600;padding:7px 13px;border-radius:999px;border:1.5px solid var(--ligne);color:var(--texte);white-space:nowrap;transition:all .2s}
+.nav a.on{background:var(--vert);border-color:var(--vert);color:#fff}
+
+/* Couverture */
+.couv{padding:28px 16px 0;text-align:center}
+.couv h1{font-size:clamp(2.2rem,11vw,3.4rem);font-weight:800;letter-spacing:.12em;line-height:1;color:var(--texte)}
+.couv .sous{font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;margin-top:8px;color:var(--texte-doux)}
+.couv-photo{position:relative;margin:22px auto 0;max-width:640px}
+.couv-photo img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:6px;position:relative;z-index:1}
+.couv-bande{background:var(--vert);color:#fff;margin-top:-80px;padding:100px 16px 26px;text-align:center}
+.couv-bande .an{font-size:2rem;font-weight:800;letter-spacing:.35em}
+
+main{max-width:720px;margin:0 auto}
+section{padding:36px 16px 8px}
+.sec-titre{font-size:1.55rem;font-weight:800;line-height:1.15;text-transform:uppercase;margin-bottom:6px}
+.sec-titre::after{content:"";display:block;width:52px;height:4px;background:var(--vert);border-radius:2px;margin-top:10px}
+.sec-num{font-size:.75rem;font-weight:700;letter-spacing:.14em;color:var(--vert);text-transform:uppercase;margin-bottom:6px}
+.intro{margin:14px 0 4px;color:var(--texte-doux)}
+
+/* À propos */
+.apropos-photo{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:6px;margin:18px 0}
+.apropos p+p{margin-top:12px}
+.bloc{background:var(--bg-alt);border-left:4px solid var(--vert);border-radius:6px;padding:14px 16px;margin-top:14px}
+.bloc h3{font-size:1.05rem;font-weight:800;margin-bottom:4px}
+.valeurs{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.valeurs span{background:var(--vert-pale);color:var(--vert-fonce);font-weight:600;font-size:.85rem;padding:6px 12px;border-radius:999px}
+
+/* Cartes de services */
+.cartes{display:grid;gap:18px;margin-top:20px}
+@media(min-width:620px){.cartes{grid-template-columns:1fr 1fr}}
+.carte{background:var(--card);border-radius:10px;overflow:hidden;box-shadow:var(--ombre);border:1px solid var(--ligne);display:flex;flex-direction:column}
+.carte-img{position:relative}
+.carte-img img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.pastille{position:absolute;top:10px;left:10px;background:var(--rouge);color:#fff;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:4px;transform:rotate(-3deg);box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.carte-corps{padding:14px 16px 16px}
+.carte h3{font-size:1.2rem;font-weight:800;line-height:1.2}
+.carte-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:8px 0 10px;padding-bottom:10px;border-bottom:1px solid var(--ligne)}
+.prix{font-weight:800;font-size:.9rem;color:var(--texte)}
+.prix small{font-weight:600;font-size:.72rem;color:var(--texte-doux);letter-spacing:.03em}
+.prix-var{font-weight:700;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--texte-doux)}
+.prix-barre{text-decoration:line-through;color:var(--texte-doux);font-weight:600;font-size:.82rem}
+.prix-promo{background:var(--rouge);color:#fff;border-radius:4px;padding:2px 7px}
+.tag{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--vert-fonce);background:var(--vert-pale);padding:3px 8px;border-radius:4px}
+.carte p{font-size:.93rem;color:var(--texte-doux)}
+
+/* Témoignage */
+.temoin{margin-top:22px;background:var(--vert);color:#fff;border-radius:10px;padding:20px 18px;text-align:center}
+.etoiles{color:#ffd23f;font-size:1.3rem;letter-spacing:4px}
+.temoin blockquote{font-weight:600;margin-top:8px;font-size:.98rem}
+.temoin strong{color:#ffd23f}
+
+/* Programme */
+.prog{margin:40px 0 0;position:relative;color:#fff;overflow:hidden}
+.prog img{width:100%;height:260px;object-fit:cover}
+.prog-txt{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px 16px;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.1) 70%)}
+.prog-txt .k{font-weight:800;letter-spacing:.1em;font-size:.85rem}
+.prog-txt h2{font-size:1.55rem;font-weight:800;line-height:1.1;text-transform:uppercase}
+.prog-txt p{color:#7ef0b0;font-weight:700;font-size:.9rem;margin-top:4px}
+
+/* Contact */
+.contact{background:var(--bg-alt)}
+.actions{display:grid;gap:10px;margin-top:18px}
+.btn{display:flex;align-items:center;gap:12px;text-decoration:none;background:var(--card);border:1.5px solid var(--ligne);border-radius:10px;padding:14px 16px;font-weight:700}
+.btn .ico{flex:none;width:38px;height:38px;border-radius:50%;background:var(--vert);color:#fff;display:grid;place-items:center}
+.btn .ico svg{width:19px;height:19px}
+.btn small{display:block;font-weight:500;color:var(--texte-doux);font-size:.8rem}
+.btn:active{transform:scale(.98)}
+.reseaux{margin-top:16px;color:var(--texte-doux);font-size:.9rem}
+
+footer{text-align:center;padding:26px 16px calc(26px + env(safe-area-inset-bottom));font-size:.78rem;color:var(--texte-doux);background:var(--bg-alt);border-top:1px solid var(--ligne)}
+
+.haut{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;width:46px;height:46px;border-radius:50%;border:none;background:var(--vert);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .25s;cursor:pointer}
+.haut.vis{opacity:1;pointer-events:auto}
+.haut svg{width:22px;height:22px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-row">
+    <img class="top-logo" src="img/logo.png" alt="Tricentris, la coop">
+    <span class="top-titre">Catalogue 2026</span>
+  </div>
+  <nav class="nav" aria-label="Sections">
+    <a href="#apropos">À propos</a>
+    <a href="#reduction">Réduction & réemploi</a>
+    <a href="#collecte">Collecte & tri</a>
+    <a href="#information">Sensibilisation</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<div class="couv">
+  <h1>CATALOGUE</h1>
+  <div class="sous">Services aux membres</div>
+  <div class="couv-photo"><img src="img/couverture.jpg" alt="Intérieur d’une boutique de réemploi"></div>
+</div>
+<div class="couv-bande"><div class="an">2026</div></div>
+
+<main>
+
+<section id="apropos" class="apropos">
+  <h2 class="sec-titre">À propos de Tricentris</h2>
+  <img class="apropos-photo" src="img/batiment.jpg" alt="Bâtiment de Tricentris" loading="lazy">
+  <p>Tricentris, la coop est une coopérative de solidarité issue du regroupement, à la fin des années 1990, de 44 municipalités ayant décidé de prendre en main la gestion de leurs matières résiduelles. Depuis maintenant près de 30 ans, Tricentris accomplit avec fierté et détermination sa mission en socialisant les bénéfices provenant de la gestion du tri des matières recyclables. L’entreprise contribue ainsi aux aspects environnementaux, sociaux et économiques de l’évolution régionale.</p>
+  <p>En 2024, Tricentris amorce un grand repositionnement stratégique et élargit son rôle bien au-delà de la récupération pour englober la pratique des 3RVE. La coopérative, qui offre aujourd’hui des services qui favorisent des communautés durables, se distingue par son engagement envers le développement durable et s’impose comme un acteur clé de l’économie circulaire et sociale. Avec son équipe engagée et des valeurs telles que l’innovation, la bienveillance et la coopération, Tricentris continue de développer des solutions concrètes et d’inspirer un changement positif au bénéfice des générations présentes et futures.</p>
+  <div class="bloc"><h3>Notre vision</h3><p>Ensemble, inspirer des changements durables pour un monde meilleur.</p></div>
+  <div class="bloc"><h3>Notre mission</h3><p>Offrir des services au bénéfice de nos membres en agissant au quotidien pour favoriser des communautés durables.</p></div>
+  <div class="bloc"><h3>Nos valeurs</h3>
+    <div class="valeurs"><span>Engagement</span><span>Coopération</span><span>Innovation</span><span>Intégrité</span><span>Environnement</span><span>Bienveillance</span></div>
+  </div>
+</section>
+
+<section id="reduction">
+  <div class="sec-num">Section 1</div>
+  <h2 class="sec-titre">Réduction, écocentre et réemploi</h2>
+  <div class="cartes">
+    <article class="carte">
+      <div class="carte-img"><img src="img/ecocentre.jpg" alt="Conteneur de bois à l’écocentre" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Gestion d’écocentre</h3>
+        <div class="carte-meta"><span class="prix-var">Tarif variable</span></div>
+        <p>De la vente des matières recyclables à la gestion d’employés, Tricentris prend en charge la totalité des activités de l’écocentre municipal. De plus, nous nous engageons à bâtir une stratégie d’affaire conçue pour vous et pour l’environnement. Ce service met également l’écoefficacité et l’innovation en avant plan dans toute sa démarche.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/boutique.jpg" alt="Vaisselle en vente dans une boutique de réemploi" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Boutique de réemploi</h3>
+        <div class="carte-meta"><span class="prix-var">Tarif variable</span></div>
+        <p>En plus du service de gestion d’écocentre, Tricentris vous offre de prendre en charge les activités d’une boutique de réemploi connexe à l’écocentre. Qu’elle soit déjà implantée ou non, ce service vous permet d’optimiser le réemploi dans votre municipalité et de sensibiliser vos citoyens aux bonnes pratiques en gestion des matières résiduelles.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/remorque.jpg" alt="Réparateur à l’œuvre dans la remorque" loading="lazy"><span class="pastille">Prix spécial lancement 2026</span></div>
+      <div class="carte-corps">
+        <h3>Remorque de réparation</h3>
+        <div class="carte-meta"><span class="prix prix-promo">650 $ <small style="color:#fff">+TX/JOUR</small></span><span class="prix-barre">839,45 $ +TX/jour</span></div>
+        <p>Inspirée du concept des Repair cafés, la remorque de réparation se déplace dans votre municipalité pour offrir à vos citoyens un espace convivial d’apprentissage et de partage.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/contenants.jpg" alt="Repas servi dans des contenants réutilisables" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Système de contenants réutilisables</h3>
+        <div class="carte-meta"><span class="prix-var">Tarif variable</span></div>
+        <p>Offrez des contenants réutilisables lors de vos événements municipaux. Découvrez nos services d’accompagnement, de collection et de lavage qui vous aideront à organiser un événement sans déchets tout en aisance.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="collecte">
+  <div class="sec-num">Section 2</div>
+  <h2 class="sec-titre">Collecte, centre de tri et récupération</h2>
+  <p class="intro">Nous sommes fiers de présenter de nouveaux services de collecte développés pour répondre à la demande croissante et assurer à nos membres un accès à des solutions fiables et abordables.</p>
+  <div class="cartes">
+    <article class="carte">
+      <div class="carte-img"><img src="img/encombrant.jpg" alt="Meubles et encombrants en bordure de rue" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Collecte encombrant</h3>
+        <div class="carte-meta"><span class="tag">⚡ Camion électrique</span><span class="prix-var">Tarif variable</span></div>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/conteneurs.jpg" alt="Conteneur Tricentris sur camion" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Collecte de conteneurs</h3>
+        <div class="carte-meta"><span class="prix-var">Tarif variable</span></div>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/collecte-textile.jpg" alt="Vêtements pliés dans une boîte" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Collecte de textile</h3>
+        <div class="carte-meta"><span class="tag">⚡ Camion électrique</span><span class="prix-var">Tarif variable</span></div>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/tri-textile.jpg" alt="Personnes triant des vêtements" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Tri de textile</h3>
+        <div class="carte-meta"><span class="prix-var">Tarif variable</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="information">
+  <div class="sec-num">Section 3</div>
+  <h2 class="sec-titre">Information, sensibilisation et éducation</h2>
+  <div class="cartes">
+    <article class="carte">
+      <div class="carte-img"><img src="img/conference.jpg" alt="Animateur portant une veste Coach" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Conférence 3RVE</h3>
+        <div class="carte-meta"><span class="prix">602,55 $ <small>+TX</small></span></div>
+        <p>Vous cherchez à outiller vos citoyens et à réduire la contamination dans vos bacs? Cette conférence saura informer vos citoyens sur les bonnes pratiques en gestion des matières résiduelles et ainsi faire d’eux de vrais pros du bac! Nous partagerons également plusieurs trucs et astuces dans le but d’intégrer de meilleures habitudes de consommation par la réduction à la source et le réemploi.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/atelier.jpg" alt="Atelier en classe" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Atelier scolaire</h3>
+        <div class="carte-meta"><span class="prix">602,55 $ <small>+TX / DEMI-JOURNÉE</small></span><span class="prix">839,45 $ <small>+TX / JOURNÉE</small></span></div>
+        <p>Très apprécié des petits — et des grands — cet atelier interactif, sur les 3RVE, présente aux tout-petits les options lorsque vient le temps de se départir d’un objet. En plus de faire la visite virtuelle d’un de nos centres de tri, l’atelier se conclut par notre renommé jeu du tri.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/theatre.jpg" alt="Comédiens de la pièce Récup et Dragon" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Pièce de théâtre Récup et Dragon</h3>
+        <div class="carte-meta"><span class="prix">1 271,20 $ <small>+TX</small></span></div>
+        <p>Présenté près de 900 fois depuis 2006, ce succès incontesté ouvre la discussion sur l’environnement et sensibilise les futurs citoyens à l’importance de chaque petit geste.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/brigade.jpg" alt="Inspection d’un bac avec une fiche" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Brigade des bacs</h3>
+        <div class="carte-meta"><span class="prix">1,85 $ <small>/ U.O.</small></span></div>
+        <p>Besoin de données pour votre plan annuel de réduction de la contamination? La Brigade des bacs, c’est le service qu’il vous faut! Chaque inspection devient une donnée utile! Grâce à notre application conçue sur mesure, vous obtiendrez un portrait précis de la qualité du tri des bacs de récupération présents sur votre territoire. Une base solide pour mieux agir auprès de vos citoyens!</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/circuit.jpg" alt="Application Circuit sur un téléphone" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Application Circuit</h3>
+        <div class="carte-meta"><span class="prix-var">Tarif variable</span></div>
+        <p>Offrez à vos citoyens une application mobile à titre de portail de la gestion des matières résiduelles. Basé sur le tri sélectif par l’intelligence artificielle, Circuit propose également une carte interactive géolocalisée, le calendrier de collecte municipale (avec option de réservation d’une plage horaire pour les encombrants), un système de gamification ainsi qu’un volet réemploi.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/outils.jpg" alt="Outils de communication sur un ordinateur portable" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Outils de communication</h3>
+        <div class="carte-meta"><span class="prix">309 $ <small>+TX / CH.</small></span></div>
+        <p>Ces outils personnalisables permettent aux citoyens, entre autres, de valider la liste des matières acceptées (3 bacs) et d’avoir une meilleure compréhension de l’impact de leurs gestes par des chiffres percutants.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/kiosque.jpg" alt="Kiosque d’information avec jeu de tri" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Kiosque d’information</h3>
+        <div class="carte-meta"><span class="prix">839,45 $ <small>+TX</small></span></div>
+        <p>L’animation parfaite pour vos événements à thématique environnementale ou familiale! Découvrez notre jeu de tri interactif qui capte l’attention et permet aux citoyens de tester leurs connaissances sur les différentes options lorsque vient le temps de se départir d’un objet (déchets, compost, récupération, écocentre, réemploi).</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/mascotte.jpg" alt="Mascotte bac de récupération bleu" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Location de mascotte</h3>
+        <div class="carte-meta"><span class="prix">82,40 $ <small>+TX</small></span></div>
+        <p>Apportez couleur, bonne humeur et sensibilisation en un seul coup d’œil. Un bac de récupération sympathique qui amuse petits et grands, tout en rappelant l’importance d’être un citoyen écoresponsable. Encouragez les participants à être des citoyens écoresponsables en tout temps.</p>
+      </div>
+    </article>
+    <article class="carte">
+      <div class="carte-img"><img src="img/station.jpg" alt="Remorque station de recyclage mobile" loading="lazy"></div>
+      <div class="carte-corps">
+        <h3>Station de recyclage mobile</h3>
+        <div class="carte-meta"><span class="prix">185,40 $ <small>+TX / JOUR</small></span></div>
+        <p>Fini le casse-tête des matières résiduelles lors des grands rassemblements! Notre remorque transformée en station de récupération mobile assure une collecte efficace et donne à votre événement une image écoresponsable forte.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="temoin">
+    <div class="etoiles" aria-label="5 étoiles">★★★★★</div>
+    <blockquote>«&nbsp;La <strong>Brigade des bacs</strong> nous a permis de libérer des ressources internes importantes tout en collectant des données précieuses sur nos opérations. Le service est déjà prévu à notre budget pour une deuxième année.&nbsp;»</blockquote>
+  </div>
+</section>
+
+<div class="prog">
+  <img src="img/programme.jpg" alt="Partenaires réunis lors d’un lancement de projet" loading="lazy">
+  <div class="prog-txt">
+    <div class="k">PROGRAMME</div>
+    <h2>S’investir pour des communautés durables</h2>
+    <p>Réalisez vos projets de développement durable</p>
+  </div>
+</div>
+
+<section id="contact" class="contact">
+  <h2 class="sec-titre">Découvrez comment Tricentris peut répondre à vos besoins</h2>
+  <div class="actions">
+    <a class="btn" href="tel:+14505624488"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span>(450) 562-4488<small>Appeler</small></span></a>
+    <a class="btn" href="mailto:info@tricentris.com"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span><span>info@tricentris.com<small>Écrire un courriel</small></span></a>
+    <a class="btn" href="https://www.tricentris.com" target="_blank" rel="noopener"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span>www.tricentris.com<small>Visiter le site</small></span></a>
+  </div>
+  <p class="reseaux">Suivez-nous sur Facebook, Instagram et LinkedIn!</p>
+</section>
+
+</main>
+
+<footer>Tricentris, la coop · Catalogue des services aux membres 2026<br>Version web mobile v1.0</footer>
+
+<button class="haut" id="haut" aria-label="Retour en haut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
+
+<script>
+(function(){
+  var liens=[].slice.call(document.querySelectorAll('.nav a'));
+  var nav=document.querySelector('.nav');
+  var haut=document.getElementById('haut');
+  var secs=liens.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  function maj(){
+    var y=window.scrollY+130, actif=-1;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)actif=i});
+    if(window.innerHeight+window.scrollY>=document.body.scrollHeight-4)actif=secs.length-1;
+    liens.forEach(function(a,i){
+      var on=i===actif;
+      if(on&&!a.classList.contains('on')){nav.scrollTo({left:a.offsetLeft-16,behavior:'smooth'})}
+      a.classList.toggle('on',on);
+    });
+    haut.classList.toggle('vis',window.scrollY>600);
+  }
+  window.addEventListener('scroll',maj,{passive:true});
+  haut.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+  maj();
+})();
+</script>
+</body>
+</html>
